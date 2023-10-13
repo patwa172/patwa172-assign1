@@ -90,9 +90,6 @@ try
 
     $songsGateway = new SongsDB($conn);
 
-
-    
-
     if($userSelection == 't')
     {
     //User puts title info on previous page
@@ -378,9 +375,16 @@ try
     //At this point the $_POST superglobal array has all of the songs in the favourties section. We now have a superglobal array
     // that is populated with the users info, now we need to make a 
 
-  $_SESSION['favourites'][] = $_POST['favourites']; //AT THIS POINT THE $_SESSION ARRAY has been populated
+    $_SESSION['favourites'][] = $_POST['favourites']; //AT THIS POINT THE $_SESSION ARRAY has been populated
   
+    //print_r($_SESSION);
 
+    $_POST = [];
+
+    //$_SESSION = [];
+
+    
+    
 
    // print_r($_SESSION);
 
