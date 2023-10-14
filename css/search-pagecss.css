@@ -1,5 +1,3 @@
-
-
 header {
     text-align: center;
     background-color: rgb(91, 194, 194);
@@ -8,19 +6,29 @@ header {
 nav {
     background-color: aqua;
 }
+
 form {
     padding-left: 20px;
     padding-right: 25%;
 }
-.container-fluid{
+
+.container-fluid {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: gray;
 }
 
-.navbar-toggler, collapsed {
+.navbar-toggler,
+collapsed {
     background-color: rgb(190, 190, 190);
 }
-.nav-link, active {
+
+.nav-link,
+active {
     font-weight: bold;
+}
+
+#songInfo {
+    text-align: center;
+    background-color: bisque;
 }

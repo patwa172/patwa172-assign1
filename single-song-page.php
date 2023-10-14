@@ -1,3 +1,8 @@
+<?php
+require_once 'includes/config.inc.php';
+require_once 'includes/assign-1-db-classes.inc.php';
+include('./includes/functions.inc.php');
+?>
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -48,14 +53,8 @@
 
 <?php
 
-require_once 'includes/config.inc.php';
-require_once 'includes/assign-1-db-classes.inc.php';
-include('./includes/functions.inc.php');
-
 //include ('./includes/functions.inc.php');
 
-$conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
-$songsGateway = new SongsDB($conn);
 
 ?>
 
@@ -69,29 +68,101 @@ include('/includes/functions.inc.php');
 include '/Applications/XAMPP/xamppfiles/htdocs/patwa172-assign1/patwa172-assign1/includes/functions.inc.php';
 */
 
+$conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
 
-if(isset($_GET['songId']))
+$songsGateway = new SongsDB($conn);
+
+if(isset($_GET["songId"]))
 {
 
-//echo $_GET['songId'];
-//caskldfalkfgjsf
+$data = $songsGateway->songInfo($_GET['songId']);
+
+
+
+foreach ($data as $d)
+{
+
+  echo "<div id='songInfo'>";
+  echo "<h1>".$d['title']."</h1>";
+  echo "<h5>By: ".$d['artist_name']."</h5>";
+  echo "<h5>Artist Type: ".$d['artist_type']."</h5>";
+  echo "<h5>Genre: ".$d['genre_name']."</h5>";
+  echo "<h5>Year: ".$d['year']."</h5>";
+  echo "<h5>Song Duration: ".$d['duration']." seconds </h5>";
+  echo "</div>";
+  //Create a table here in which all of the info goes
+
+  //if it doesnt work extract all values from $data array and create table outside of loop
+
+
+  $danceability = $d['danceability'];
+  $bpm = $d['bpm'];
+  $energy = $d['energy'];
+  $loudness = $d['loudness'];
+  $liveness = $d['liveness'];
+  $valence = $d['valence'];
+  $duration = $d['duration'];
+  $acousticness = $d['acousticness'];
+  $speechiness = $d['speechiness'];
+  $popularity = $d['popularity'];
+
+}
+
+echo"</br>";
+
+echo "<h2> Song Analytics </h2>";
+
+
+echo"</br>";
+
+
+echo"<table>";
+echo "<tr>";
+echo "<th> Danceability </th>";
+echo "<th> BPM </th>";
+echo "<th> Energy </th>";
+echo "<th> Loudness </th>";
+echo "<th> Liveness </th>";
+echo "<th> Valence </th>";
+echo "<th> Duration </th>";
+echo "<th> Acousticness </th>";
+echo "<th> Speechiness </th>";
+echo "<th> Popularity </th>";
+echo "</tr>";
+
+
+    
+
+    echo "<tr>";
+    echo "<td>".$danceability."</td>";
+    echo "<td>".$bpm ."</td>";
+    echo "<td>".$energy ."</td>";
+    echo "<td>".$loudness."</td>";
+    echo "<td>".$liveness ."</td>";
+    echo "<td>".$valence ."</td>";
+    echo "<td>".$duration ."</td>";
+    echo "<td>".$acousticness ."</td>";
+    echo "<td>".$speechiness ."</td>";
+    echo "<td>".$popularity ."</td>";
+   
+    echo "</tr>";
+
+
+    
+
+
+echo "</table>";
+
 
 }
 
 
+
+
+
+
+
+
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

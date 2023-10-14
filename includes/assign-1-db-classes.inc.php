@@ -63,12 +63,27 @@ class SongsDB
     
     private static $baseSQL2 ="SELECT DISTINCT year FROM songs";
 
+    private static $baseSQL3 =  "SELECT DISTINCT bpm, energy, danceability, liveness, valence, acousticness, speechiness, popularity, duration, loudness, song_id, title, year, artists.artist_name as artist_name, genres.genre_name as genre_name FROM songs INNER JOIN artists on songs.artist_id = artists.artist_id INNER JOIN genres ON  songs.genre_id = genres.genre_id";
+
     //$baseSQL = 'SELECT * FROM songs Order by title';
 
     public function __construct($connection)
     {
 
         $this->pdo = $connection;
+
+    }
+
+
+    public function songInfo($userInput)
+    {
+
+        $sql = self::$baseSQL3. " WHERE song_id LIKE ?";
+
+        $statement = DatabaseHelper::runQuery($this->pdo, $sql, array($userInput));
+
+        return $statement->fetchAll();
+
 
     }
 
@@ -176,8 +191,7 @@ class ArtistsDB
 
     private static $baseSQL2 =  "SELECT DISTINCT song_id, title, year, artists.artist_name as artist_name, genres.genre_name as genre_name FROM songs INNER JOIN artists on songs.artist_id = artists.artist_id INNER JOIN genres ON  songs.genre_id = genres.genre_id";
     
-    private static $baseSQL3 = "SELECT DISTINCT song_id, title, year, artists.artist_name as artist_name, genres.genre_name as genre_name FROM songs INNER JOIN artists on songs.artist_id = artists.artist_id INNER JOIN genres ON  songs.genre_id = genres.genre_id";
-
+   
 
     public function getAllArtists()
     {
