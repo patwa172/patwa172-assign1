@@ -169,6 +169,15 @@ class SongsDB
 
     }
 
+    public function searchTopGenres() 
+    {
+        $sql =self::$baseSQL. " WHERE year < ?";
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,array($userInput));
+
+        return $statement->fetchAll();
+    }
+
 
 
 

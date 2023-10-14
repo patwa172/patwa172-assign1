@@ -32,3 +32,22 @@ active {
     text-align: center;
     background-color: bisque;
 }
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    column-gap: 20px;
+    row-gap: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+@media screen and (max-width: 1380px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        grid-auto-rows: minmax(100px, auto);
+    }
+}
