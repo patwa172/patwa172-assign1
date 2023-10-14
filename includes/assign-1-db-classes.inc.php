@@ -65,6 +65,11 @@ class SongsDB
 
     private static $baseSQL3 =  "SELECT DISTINCT bpm, energy, danceability, liveness, valence, acousticness, speechiness, popularity, duration, loudness, song_id, title, year, artists.artist_name as artist_name, genres.genre_name as genre_name FROM songs INNER JOIN artists on songs.artist_id = artists.artist_id INNER JOIN genres ON  songs.genre_id = genres.genre_id";
 
+
+    private static $baseSQL4 = "SELECT title, songs.artist_id, artists.artist_name From songs INNER JOIN artists ON artists.artist_id = songs.artist_id";
+    
+
+
     //$baseSQL = 'SELECT * FROM songs Order by title';
 
     public function __construct($connection)
@@ -179,7 +184,75 @@ class SongsDB
     }
 
 
+    public function mostPopular()
+    {
 
+        $sql = self::$baseSQL." ORDER BY popularity DESC LIMIT 10";
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,null);
+
+        return $statement->fetchAll();
+
+    }
+
+    public function oneHitWonders()
+    {
+
+        $sql = self::$baseSQL4." GROUP BY songs.artist_id HAVING count(songs.artist_id) = 1 LIMIT 10";
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,null);
+
+        return $statement->fetchAll();
+
+    }
+
+
+    public function acousticSong()
+    {
+
+        $sql = self::$baseSQL3." WHERE acousticness >= 40 ORDER BY duration DESC LIMIT 10";
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,null);
+
+        return $statement->fetchAll();
+
+    }
+
+    public function clubMusic()
+    {
+
+        $sql = self::$baseSQL3." WHERE danceability > 80 ORDER BY ((danceability*1.6) + (energy*1.4)) DESC LIMIT 10";
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,null);
+
+        return $statement->fetchAll();
+
+        
+    }
+
+    public function runningMusic()
+    {
+
+        $sql = self::$baseSQL3." WHERE bpm BETWEEN 120 AND 125 ORDER BY ((valence*1.6) + (energy*1.3)) DESC LIMIT 10";
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,null);
+
+        return $statement->fetchAll();
+
+        
+    }
+
+    public function studyingMusic()
+    {
+
+        $sql = self::$baseSQL3." WHERE bpm BETWEEN 100 AND 115 AND speechiness BETWEEN 1 AND 20 ORDER BY ((acousticness*0.8) + (100-speechiness) + (100 - valence)) DESC LIMIT 10";
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,null);
+
+        return $statement->fetchAll();
+
+        
+    }
 
 
 }
@@ -200,6 +273,7 @@ class ArtistsDB
 
     private static $baseSQL2 =  "SELECT DISTINCT song_id, title, year, artists.artist_name as artist_name, genres.genre_name as genre_name FROM songs INNER JOIN artists on songs.artist_id = artists.artist_id INNER JOIN genres ON  songs.genre_id = genres.genre_id";
     
+    private static $baseSQL3 = "SELECT artists.artist_name, COUNT(songs.song_id) as song_count FROM artists INNER JOIN songs ON songs.artist_id = artists.artist_id GROUP BY artist_name ORDER BY song_count DESC LIMIT 10";
    
 
     public function getAllArtists()
@@ -224,6 +298,17 @@ class ArtistsDB
 
         return $statement->fetchAll();
 
+    }
+
+    public function getTopArtists()
+    {
+
+
+        $sql = self::$baseSQL3;
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,null);
+
+        return $statement->fetchAll();   
 
     }
 
@@ -245,6 +330,9 @@ class GenresDB
     private static $baseSQL = "SELECT DISTINCT genre_name from genres";
 
     private static $baseSQL2 = "SELECT DISTINCT song_id, title, year, artists.artist_name as artist_name, genres.genre_name as genre_name FROM songs INNER JOIN artists on songs.artist_id = artists.artist_id INNER JOIN genres ON  songs.genre_id = genres.genre_id";
+    
+    private static $baseSQL3 = "SELECT genres.genre_name, COUNT(songs.song_id) as song_count FROM songs INNER JOIN genres ON songs.genre_id = genres.genre_id GROUP BY genre_name ORDER BY song_count DESC LIMIT 10";
+    
     public function getAllGenres()
     {
 
@@ -265,6 +353,20 @@ class GenresDB
         $statement = DatabaseHelper::runQuery($this->pdo,$sql,array($userInput));
 
         return $statement->fetchAll();   
+
+    }
+
+    public function getTopGenres()
+    {
+
+
+        $sql = self::$baseSQL3;
+
+        $statement = DatabaseHelper::runQuery($this->pdo,$sql,null);
+
+        return $statement->fetchAll();   
+
+
 
     }
 

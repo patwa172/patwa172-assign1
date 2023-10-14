@@ -54,26 +54,202 @@ include 'includes/functions.inc.php';
 
 
 
+
 try
 {
    session_start();
     
     $conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
-    //Need to check if user selected the proper radio button (make more conditionals)
-    //If the user selects the a radio button, then they must only put in info for what they have selected.
-
-    //Checking to see what buttons the user has selected.
-
-    // Create a click here link with a query string, goes back to the same page, and populates the $_GET superglobal array
-    // When the user clicks it, the song gets added to a session based array.
-    //Change Markup so it reloads properly. Change ifs.
     
-   
+  
+    if(isset($_GET['val']))
+    {
+
+      if(($_GET['val']) == 1)
+      {
+
+        $genresGateway = new GenresDB($conn);
+
+        $data = $genresGateway->getTopGenres();
+
+
+        print_r($data);
+
+        foreach ($data as $d)
+        {
+
+          echo "<h1>". $d['genre_name'] ."</h1>";
+          echo "<h5>". $d['song_count'] ."</h5>";
+         
+
+
+        }
+      
+      }
+
+      else if(($_GET['val']) == 2)
+      {
+
+        $artistsGateway = new ArtistsDB($conn);
+
+        $data = $artistsGateway->getTopArtists();
+
+
+        print_r($data);
+
+        foreach ($data as $d)
+        {
+
+          echo "<h1>". $d['artist_name'] ."</h1>";
+          echo "<h5> Song count: ". $d['song_count'] ."</h5>";
+        
+
+        }
+        
+
+        
+      }
+
+      else if(($_GET['val']) == 3)
+      {
+        
+
+
+        $songsGateway = new SongsDB($conn);
+
+        $data = $songsGateway->mostPopular();
+
+        print_r($data);
+
+        foreach ($data as $d)
+        {
+
+          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
+         // echo "<h5> Popularity score:".$d['popularity']."</h5>";
+        
+        }
+
+
+
+      }
+      else if(($_GET['val']) == 4)
+      {
+        
+
+
+        $songsGateway = new SongsDB($conn);
+
+        $data = $songsGateway->oneHitWonders();
+
+        print_r($data);
+
+        foreach ($data as $d)
+        {
+
+          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
+         // echo "<h5> Popularity score:".$d['popularity']."</h5>";
+        
+        }
+
+
+      }
+      else if(($_GET['val']) == 5)
+      {
+
+
+        $songsGateway = new SongsDB($conn);
+
+        $data = $songsGateway->acousticSong();
+
+        print_r($data);
+
+        foreach ($data as $d)
+        {
+
+          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
+         // echo "<h5> Popularity score:".$d['popularity']."</h5>";
+        
+        }
+
+    
+
+      }
+    
+      else if(($_GET['val']) == 6)
+      {
+
+        $songsGateway = new SongsDB($conn);
+
+        $data = $songsGateway->clubMusic();
+
+        print_r($data);
+
+        foreach ($data as $d)
+        {
+
+          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
+         // echo "<h5> Popularity score:".$d['popularity']."</h5>";f
+        }
+
+        
+      }
+      else if(($_GET['val']) == 7)
+      {
+
+        $songsGateway = new SongsDB($conn);
+
+        $data = $songsGateway->runningMusic();
+
+        print_r($data);
+
+        foreach ($data as $d)
+        {
+
+          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
+         // echo "<h5> Popularity score:".$d['popularity']."</h5>";f
+        }
+
+      }
+
+      else if(($_GET['val']) == 8)
+      {
+        
+        $songsGateway = new SongsDB($conn);
+
+        $data = $songsGateway->studyingMusic();
+
+        print_r($data);
+
+        foreach ($data as $d)
+        {
+
+          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
+         // echo "<h5> Popularity score:".$d['popularity']."</h5>";f
+        }
+
+
+
+
+      }
+    
+    }
+
+
+
+
+    //From song search page
 
     if(isset(($_GET['lessOrGreater'][0])))
     {
         $lessOrGreater = $_GET['lessOrGreater'][0];
-    }
+   
+      }
 
 
 
@@ -100,40 +276,7 @@ try
             $data = $songsGateway->searchFromTitle($_GET['titleName']);
 
             outputData($data);
-            /*
-            echo"<form action = '' method='POST'>";
-            echo"<table>";
-            echo "<tr>";
-            echo "<th> Song Title </th>";
-            echo "<th> Song Year </th>";
-            echo "<th> Artist </th>";
-            echo "<th> Genre </th>";
-            echo "</tr>";
-    
-            foreach($data as $d)
-            {
-                
-                echo "<tr>";
-                echo "<td><a href=single-song-page.php?n=".$d['song_id'].">".$d['title']."</a></td>";
-                echo "<td>".$d['year']."</td>";
-                echo "<td>".$d['artist_name']."</td>";
-                echo "<td>".$d['genre_name']."</td>";
-                echo "<td><input type = 'checkbox' name ='favourites[]' value = '".$d['song_id']."'></td>";
-                //echo "<td> <a href=search-results-page.php?n=".$d['song_id']."> Add to favourites </a></td>" ;
-                echo "</tr>";
-
-                
-            }  
-            echo "</table>";
-                  
-            echo "<button type='submit'> Add to favourites </button>";
-            echo "</form>"; 
-
-            $checker = 1;
-
-            echo "<h2> You added the following songs to your favourites: </h2>";
-
-            */
+           
         }
     
     }
@@ -150,43 +293,6 @@ try
 
             outputData($data);
 
-
-
-            /*
-            echo"<form action = '' method = 'POST'>";
-            echo"<table>";
-            echo "<tr>";
-            echo "<th> Song Title </th>";
-            echo "<th> Song Year </th>";
-            echo "<th> Artist </th>";
-            echo "<th> Genre </th>";
-            echo "</tr>";
-    
-            foreach($data as $d)
-            {
-                echo "<tr>";
-                echo "<td><a href=single-song-page.php?n=".$d['song_id'].">".$d['title']."</a></td>";
-                echo "<td>".$d['year']."</td>";
-                echo "<td>".$d['artist_name']."</td>";
-                echo "<td>".$d['genre_name']."</td>";
-                echo "<td><input type = 'checkbox' name ='favourites[]' value = '".$d['song_id']."'></td>";
-                //echo "<td> <a href=search-results-page.php?n=".$d['song_id']."> Add to favourites </a></td>" ;
-                echo "</tr>";
-                
-            }  
-              
-            
-            
-            echo "</table>";
-            
-            echo "<button type='submit'> Add to favourites </button>";
-
-            echo "</form>"; 
-
-            $checker = 1;
-            echo "<h2> You added the following songs to your favourites: </h2>";
-
-            */
         }
 
        
@@ -208,43 +314,7 @@ try
 
             outputData($data);
 
-            /*
-            echo"<form action = '' method = 'POST'>";
-            echo"<table>";
-            echo "<tr>";
-            echo "<th> Song Title </th>";
-            echo "<th> Song Year </th>";
-            echo "<th> Artist </th>";
-            echo "<th> Genre </th>";
-            echo "</tr>";
-
-            foreach($data as $d)
-            {
-               
-                
-                echo "<tr>";
-                echo "<td><a href=single-song-page.php?n=".$d['song_id'].">".$d['title']."</a></td>";
-                echo "<td>".$d['year']."</td>";
-                echo "<td>".$d['artist_name']."</td>";
-                echo "<td>".$d['genre_name']."</td>";
-                echo "<td> <input type ='checkbox' name='favourites[]' value='".$d['song_id']."'> </td>";    
-                echo "</tr>";
-                           
-            }  
-
-            echo "</table>";
-
- 
-
-            echo "<button type='submit'> Add to favourites </button>";
-            echo "</form>"; 
-
-            
-            $checker = 1;
-
-            echo "<h2> You added the following songs to your favourites: </h2>";
-    
-            */
+           
         }
     
     }
@@ -267,42 +337,7 @@ try
 
                 outputData($data);
                 
-                /*
-                echo"<form action = '' method='POST'>";
-                echo"<table>";
-                echo "<tr>";
-                echo "<th> Song Title </th>";
-                echo "<th> Song Year </th>";
-                echo "<th> Artist </th>";
-                echo "<th> Genre </th>";
-                echo "</tr>";
-        
-                foreach($data as $d)
-                {
-                    
-                    echo "<tr>";
-                    echo "<td><a href=single-song-page.php?n=".$d['song_id'].">".$d['title']."</a></td>";
-                    echo "<td>".$d['year']."</td>";
-                    echo "<td>".$d['artist_name']."</td>";
-                    echo "<td>".$d['genre_name']."</td>";
-                    echo "<td><input type = 'checkbox' name ='favourites[]' value = '".$d['song_id']."'></td>";
-                    //echo "<td> <a href=search-results-page.php?n=".$d['song_id']."> Add to favourites </a></td>" ;
-                    echo "</tr>";
-                    
-                }  
-
-              
-
-               echo "</table>";
-               echo "<button type='submit'> Add to favourites </button>";
-               echo "</form>";  
-
-
-               $checker = 1;
-
-               echo "<h2> You added the following songs to your favourites: </h2>";
-               
-               */
+                
             }
         
         }
@@ -321,45 +356,7 @@ try
 
                 outputData($data);
 
-                /*
-
-                echo"<form action = '' method='POST'>";
-                echo"<table>";
-                echo "<tr>";
-                echo "<th> Song Title </th>";
-                echo "<th> Song Year </th>";
-                echo "<th> Artist </th>";
-                echo "<th> Genre </th>";
-                echo "</tr>";
-        
-                foreach($data as $d)
-                {
-                    
-                    echo "<tr>";
-                    echo "<td><a href=single-song-page.php?n=".$d['song_id'].">".$d['title']."</a></td>";
-                    echo "<td>".$d['year']."</td>";
-                    echo "<td>".$d['artist_name']."</td>";
-                    echo "<td>".$d['genre_name']."</td>";
-                    echo "<td><input type = 'checkbox' name =favourites[] value = '".$d['song_id']."'></td>";
-                    //echo "<td> <a href=search-results-page.php?n=".$d['song_id']."> Add to favourites </a></td>" ;
-                    echo "</tr>";
-    
                 
-                }  
-                
-                
-                echo "</table>";
-                echo "<button type='submit'> Add to favourites </button>";
-                echo "</form>"; 
-
-                $checker = 1;
-
-
-                echo "<h2> You added the following songs to your favourites: </h2>";
-
-
-                */
-
           }
 
         }
@@ -382,23 +379,6 @@ try
     $_POST = [];
 
     //$_SESSION = [];
-
-    
-    
-
-   // print_r($_SESSION);
-
-
-
-   //OUTPUTS SONGS (FOR TESTING PURPOSES)
-
-   // Make this a function and add at the end of each conditional
-
-  
-  
-    //echo "<a href=view-favorites-page.php?item='".$string."'> Click here to view favourites </a>";
-
-    
 
 }
 

@@ -56,14 +56,14 @@ include 'includes/functions.inc.php';
 <main>
 
 <div class="grid-container">
-  <div class="grid-item1"><a href="./search-results-page.php#?"><img href="./search-results-page.php#?" src="./pics/topGenres.jpg" alt=""></a></div>
-  <div class="grid-item2"><a href="./search-results-page.php#?"><img src="./pics/topArtists.jpg" alt=""></a></div>
-  <div class="grid-item3"><a href="./search-results-page.php#?"><img src="./pics/mostPopularSongs.jpg" alt=""></a></div>
-  <div class="grid-item4"><a href="./search-results-page.php#?"><img src="./pics/oneHitWonders.jpg" alt=""></a></div>
-  <div class="grid-item5"><a href="./search-results-page.php#?"><img src="./pics/longestAcousticSongs.jpg" alt=""></a></div>
-  <div class="grid-item6"><a href="./search-results-page.php#?"><img src="./pics/atTheClub.jpg" alt=""></a></div>
-  <div class="grid-item7"><a href="./search-results-page.php#?"><img src="./pics/runningSongs.jpg" alt=""></a></div>
-  <div class="grid-item8"><a href="./search-results-page.php#?"><img src="./pics/studying.jpg" alt=""></a></div>
+  <div class="grid-item1"><a href="./search-results-page.php?val=1"><img src="./pics/topGenres.jpg" alt=""></a></div>
+  <div class="grid-item2"><a href="./search-results-page.php?val=2"><img src="./pics/topArtists.jpg" alt=""></a></div>
+  <div class="grid-item3"><a href="./search-results-page.php?val=3"><img src="./pics/mostPopularSongs.jpg" alt=""></a></div>
+  <div class="grid-item4"><a href="./search-results-page.php?val=4"><img src="./pics/oneHitWonders.jpg" alt=""></a></div>
+  <div class="grid-item5"><a href="./search-results-page.php?val=5"><img src="./pics/longestAcousticSongs.jpg" alt=""></a></div>
+  <div class="grid-item6"><a href="./search-results-page.php?val=6"><img src="./pics/atTheClub.jpg" alt=""></a></div>
+  <div class="grid-item7"><a href="./search-results-page.php?val=7 "><img src="./pics/runningSongs.jpg" alt=""></a></div>
+  <div class="grid-item8"><a href="./search-results-page.php?val=8"><img src="./pics/studying.jpg" alt=""></a></div>
 </div>
 
 
