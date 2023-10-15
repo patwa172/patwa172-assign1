@@ -55,6 +55,11 @@ return $statement;
 
 
 //The folloing are databases for each of the tables.
+
+
+//This is the database that is used to query the songs table.
+// This data base contains all of the functions that an instance of this class can use
+
 class SongsDB
 {
 
@@ -65,13 +70,14 @@ class SongsDB
 
     private static $baseSQL3 =  "SELECT DISTINCT bpm, energy, danceability, liveness, valence, acousticness, speechiness, popularity, duration, loudness, song_id, title, year, artists.artist_name as artist_name, genres.genre_name as genre_name FROM songs INNER JOIN artists on songs.artist_id = artists.artist_id INNER JOIN genres ON  songs.genre_id = genres.genre_id";
 
-
     private static $baseSQL4 = "SELECT songs.song_id, title, songs.artist_id, artists.artist_name From songs INNER JOIN artists ON artists.artist_id = songs.artist_id";
+
+
     
-
-
     //$baseSQL = 'SELECT * FROM songs Order by title';
 
+
+    //Constructor for the songs database
     public function __construct($connection)
     {
 
@@ -80,10 +86,11 @@ class SongsDB
     }
 
 
+    //This function takes in a song Id value and returns a data array with the proper song info for the song whos song id was used as a parameter.
     public function songInfo($userInput)
     {
 
-        $sql = self::$baseSQL3. " WHERE song_id LIKE ?";
+        $sql = self::$baseSQL3. " WHERE songs.song_id LIKE ?";
 
         $statement = DatabaseHelper::runQuery($this->pdo, $sql, array($userInput));
 
@@ -93,7 +100,8 @@ class SongsDB
     }
 
     
-    public function getAll() //can make it so that this function takes in parameters of an sql statement 
+    //This function returns all of the songs.
+    public function getAll() 
     {
         $sql = self::$baseSQL;
         $statement = DatabaseHelper::runQuery($this->pdo, $sql, null); 
@@ -101,7 +109,9 @@ class SongsDB
 
     }
 
-    //This is where we write all of our functions
+   
+
+    //This function searches a song based on the song id
 
     public function searchFromSongId($userInput)
     {
@@ -116,6 +126,9 @@ class SongsDB
     }
 
 
+     //This function searches a song based on the title of a song inputted
+
+
     public function searchFromTitle($userInput)
     {
 
@@ -127,6 +140,7 @@ class SongsDB
 
     }
 
+    //This function outputs all of the years that have songs in this database.
     public function getAllYears()
     {
 
@@ -138,6 +152,7 @@ class SongsDB
     }
 
 
+    
     public function searchFromYearLT($userInput)
     {
 
