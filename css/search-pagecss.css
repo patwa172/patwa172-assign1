@@ -56,9 +56,19 @@ active {
 table {
     align-items: center;
 }
+body {
+    height: 100%;
+    display: flex;
+    margin : 0;
+    flex-direction: column;
+}
 
 footer{
-    margin-top: 200px;
-    background-color: rgb(143, 130, 155);
     text-align: center;
+    margin-top: 300px;
+    border-style: solid;
+    border-color: gainsboro;
+    background-color: gainsboro;
+    padding: 20px;
+    font-family: var(--font);
 }

@@ -31,6 +31,7 @@ if (isset($_GET['favourites']))
       {
           foreach ($value as $key2 => $value2)
            {
+            if ($value2 != null){
               foreach ($value2 as $k3 => $v3) 
               {
                
@@ -42,6 +43,7 @@ if (isset($_GET['favourites']))
               }
            }
       }
+    }
   }
 }
 
@@ -69,7 +71,10 @@ foreach ($_SESSION as $key => $value)
 {
   
   foreach ($value as $key2 => $value2) 
-  {
+  { 
+    if ($value2 != null){
+
+    
       foreach ($value2 as $k3 => $v3) 
       {
           // Look up information from your data source using the song ID (assuming it returns an array)
@@ -87,7 +92,7 @@ foreach ($_SESSION as $key => $value)
               
           }
       }
-
+}
   }
 
 }

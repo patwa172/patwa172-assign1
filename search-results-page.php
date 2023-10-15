@@ -51,15 +51,17 @@
 <?php
 
 
-require_once 'includes/config.inc.php';
-require_once 'includes/assign-1-db-classes.inc.php';
+include 'includes/config.inc.php';
+include 'includes/assign-1-db-classes.inc.php';
 include 'includes/functions.inc.php';
 
-
+header("Access-Control-Allow-Origin: https://example.com");
 
 
    session_start();
     
+  $userSelection = 1;
+
     $conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
     
   
@@ -279,7 +281,7 @@ include 'includes/functions.inc.php';
             outputData($data);
            
         }
-    
+        $_SESSION['favourites'][] = $_POST['favourites'];
     }
 
     else if($userSelection == 'a')
@@ -295,7 +297,7 @@ include 'includes/functions.inc.php';
             outputData($data);
 
         }
-
+        $_SESSION['favourites'][] = $_POST['favourites'];
        
 
 
@@ -317,7 +319,7 @@ include 'includes/functions.inc.php';
 
            
         }
-    
+        $_SESSION['favourites'][] = $_POST['favourites'];
     }
 
     //Tricky part, if user selects year
@@ -340,7 +342,7 @@ include 'includes/functions.inc.php';
                 
                 
             }
-        
+            $_SESSION['favourites'][] = $_POST['favourites'];
         }
 
 
@@ -359,7 +361,7 @@ include 'includes/functions.inc.php';
 
                 
           }
-
+          $_SESSION['favourites'][] = $_POST['favourites'];
         }
     
     
@@ -373,11 +375,11 @@ include 'includes/functions.inc.php';
     //At this point the $_POST superglobal array has all of the songs in the favourties section. We now have a superglobal array
     // that is populated with the users info, now we need to make a 
 
-    $_SESSION['favourites'][] = $_POST['favourites']; //AT THIS POINT THE $_SESSION ARRAY has been populated
+    //$_SESSION['favourites'][] = $_POST['favourites']; //AT THIS POINT THE $_SESSION ARRAY has been populated
   
     //print_r($_SESSION);
 
-    $_POST = [];
+    //$_POST = [];
 
     //$_SESSION = [];
 
@@ -387,6 +389,9 @@ include 'includes/functions.inc.php';
 
 ?>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
 <footer class="testfoot">
   COMP 3512 - Web 2
   <br>
@@ -394,5 +399,3 @@ include 'includes/functions.inc.php';
   <br>
   &copy; Krithik Jaisankar & Paraspreet Atwal 2023
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-</body>
