@@ -152,7 +152,8 @@ class SongsDB
     }
 
 
-    
+    //This function takes in a year and returns the songs that came out earlier than the year
+    //specified
     public function searchFromYearLT($userInput)
     {
 
@@ -164,7 +165,7 @@ class SongsDB
 
 
     }
-
+    //This function takes in a year and returns the songs that came out after the year specified
     public function searchFromYearGT($userInput)
     {
 
@@ -176,7 +177,7 @@ class SongsDB
 
 
     }
-
+    //This function takes in 2 years and returns the songs that came out between the 2 years
     public function searchFromYears($userInput1, $userInput2)
     {
 
@@ -188,7 +189,7 @@ class SongsDB
 
 
     }
-
+    //Returns the songs in the most popular genre
     public function searchTopGenres() 
     {
         $sql =self::$baseSQL. " WHERE year < ?";
@@ -198,7 +199,7 @@ class SongsDB
         return $statement->fetchAll();
     }
 
-
+    //returns the songs sorted by their popularity
     public function mostPopular()
     {
 
@@ -209,7 +210,7 @@ class SongsDB
         return $statement->fetchAll();
 
     }
-
+    //returns the songs that are created by artists with only one song in the DB
     public function oneHitWonders()
     {
 
@@ -221,7 +222,7 @@ class SongsDB
 
     }
 
-
+    //returns the longest songs with an acousticness above 40
     public function acousticSong()
     {
 
@@ -232,7 +233,7 @@ class SongsDB
         return $statement->fetchAll();
 
     }
-
+    //returns the songs with danceablility above 80 sorted by the given calculation
     public function clubMusic()
     {
 
@@ -244,7 +245,7 @@ class SongsDB
 
         
     }
-
+    //returns songs with bpm between 120-125 and sorted by the given calculation
     public function runningMusic()
     {
 
@@ -256,7 +257,8 @@ class SongsDB
 
         
     }
-
+    //returns only the sogns with bpm value between 100-115 and sorted by the calculation in
+    //descending order
     public function studyingMusic()
     {
 
@@ -290,7 +292,7 @@ class ArtistsDB
     
     private static $baseSQL3 = "SELECT artists.artist_name, COUNT(songs.song_id) as song_count FROM artists INNER JOIN songs ON songs.artist_id = artists.artist_id GROUP BY artist_name ORDER BY song_count DESC LIMIT 10";
    
-
+    //this function will get all the artists in the DB and return them
     public function getAllArtists()
     {
         $sql = self::$baseSQL;
@@ -303,7 +305,7 @@ class ArtistsDB
 
     }
 
-
+    //takes in the name of an artist from the user and returns songs made by them
     public function searchFromArtist($userInput)
     {
 
@@ -314,7 +316,7 @@ class ArtistsDB
         return $statement->fetchAll();
 
     }
-
+    //returns the songs made by artists with the most amount of songs
     public function getTopArtists()
     {
 
@@ -348,6 +350,7 @@ class GenresDB
     
     private static $baseSQL3 = "SELECT genres.genre_name, COUNT(songs.song_id) as song_count FROM songs INNER JOIN genres ON songs.genre_id = genres.genre_id GROUP BY genre_name ORDER BY song_count DESC LIMIT 10";
     
+    //returns all of the genres in the DB
     public function getAllGenres()
     {
 
@@ -359,7 +362,7 @@ class GenresDB
 
 
     }
-
+    //takes in the name of a genre and returns all of the songs within that genre
     public function searchFromGenre($userInput)
     {
 
@@ -370,7 +373,7 @@ class GenresDB
         return $statement->fetchAll();   
 
     }
-
+    //returns the genres with the most amount of songs in each of them
     public function getTopGenres()
     {
 
