@@ -1,9 +1,3 @@
-<?php
-require_once 'includes/config.inc.php';
-require_once 'includes/assign-1-db-classes.inc.php';
-include 'includes/functions.inc.php';
-?>
-
 <!DOCTYPE html>
 
 <head>
@@ -17,6 +11,7 @@ include 'includes/functions.inc.php';
 
 <body>
 
+<main>
 
 <header>
 
@@ -47,7 +42,7 @@ include 'includes/functions.inc.php';
         <li class="nav-item">
           <a class="nav-link" href="./view-favorites-page.php#">View Favorites</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="./about-us-page.php#">About Us</a>
         </li>
       </form>
@@ -55,20 +50,7 @@ include 'includes/functions.inc.php';
   </div>
 </nav>
 </header>
-
-<main>
-
-<div class="grid-container">
-  <div class="grid-item1"><a href="./search-results-page.php?val=1"><img src="./pics/topGenres.jpg" alt=""></a></div>
-  <div class="grid-item2"><a href="./search-results-page.php?val=2"><img src="./pics/topArtists.jpg" alt=""></a></div>
-  <div class="grid-item3"><a href="./search-results-page.php?val=3"><img src="./pics/mostPopularSongs.jpg" alt=""></a></div>
-  <div class="grid-item4"><a href="./search-results-page.php?val=4"><img src="./pics/oneHitWonders.jpg" alt=""></a></div>
-  <div class="grid-item5"><a href="./search-results-page.php?val=5"><img src="./pics/longestAcousticSongs.jpg" alt=""></a></div>
-  <div class="grid-item6"><a href="./search-results-page.php?val=6"><img src="./pics/atTheClub.jpg" alt=""></a></div>
-  <div class="grid-item7"><a href="./search-results-page.php?val=7"><img src="./pics/runningSongs.jpg" alt=""></a></div>
-  <div class="grid-item8"><a href="./search-results-page.php?val=8"><img src="./pics/studying.jpg" alt=""></a></div>
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <footer class="testfoot">
   COMP 3512 - Web 2
   <br>
@@ -76,10 +58,4 @@ include 'includes/functions.inc.php';
   <br>
   &copy; Krithik Jaisankar & Paraspreet Atwal 2023
 </footer>
-
 </main>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
-
-</body>

@@ -1,7 +1,7 @@
 <?php
 require_once 'includes/config.inc.php';
 require_once 'includes/assign-1-db-classes.inc.php';
-include('./includes/functions.inc.php');
+include('includes/functions.inc.php');
 ?>
 <!DOCTYPE html>
 <head>
@@ -44,6 +44,9 @@ include('./includes/functions.inc.php');
         <li class="nav-item">
           <a class="nav-link" href="./view-favorites-page.php#">View Favorites</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./about-us-page.php#">About Us</a>
+        </li>
       </form>
     </div>
   </div>
@@ -72,6 +75,9 @@ $conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
 
 $songsGateway = new SongsDB($conn);
 
+
+
+
 if(isset($_GET["songId"]))
 {
 
@@ -81,6 +87,20 @@ $data = $songsGateway->songInfo($_GET['songId']);
 
 foreach ($data as $d)
 {
+  //$songMinutes = $d['duration'] / 60;
+
+  //echo $songMinutes;
+
+  $seconds = $d['duration'];
+  $minutes = floor($seconds/60);
+  $secondsleft = $seconds%60;
+
+  if($minutes<10) {
+    $minutes = "" . $minutes;
+  }
+  if($secondsleft<10) {
+    $secondsleft = "0" . $secondsleft;
+  }
 
   echo "<div id='songInfo'>";
   echo "<h1>".$d['title']."</h1>";
@@ -88,7 +108,7 @@ foreach ($data as $d)
   echo "<h5>Artist Type: ".$d['artist_type']."</h5>";
   echo "<h5>Genre: ".$d['genre_name']."</h5>";
   echo "<h5>Year: ".$d['year']."</h5>";
-  echo "<h5>Song Duration: ".$d['duration']." seconds </h5>";
+  echo "<h5>Song Duration: ".$minutes.":".$secondsleft." seconds </h5>";
   echo "</div>";
   //Create a table here in which all of the info goes
 
@@ -116,21 +136,20 @@ echo "<h2> Song Analytics </h2>";
 echo"</br>";
 
 
-echo"<table>";
-echo "<tr>";
-echo "<th> Danceability </th>";
-echo "<th> BPM </th>";
-echo "<th> Energy </th>";
-echo "<th> Loudness </th>";
-echo "<th> Liveness </th>";
-echo "<th> Valence </th>";
-echo "<th> Duration </th>";
-echo "<th> Acousticness </th>";
-echo "<th> Speechiness </th>";
-echo "<th> Popularity </th>";
-echo "</tr>";
 
-
+    echo"<table>";
+    echo "<tr>";
+    echo "<th> Danceability </th>";
+    echo "<th> BPM </th>";
+    echo "<th> Energy </th>";
+    echo "<th> Loudness </th>";
+    echo "<th> Liveness </th>";
+    echo "<th> Valence </th>";
+    echo "<th> Duration </th>";
+    echo "<th> Acousticness </th>";
+    echo "<th> Speechiness </th>";
+    echo "<th> Popularity </th>";
+    echo "</tr>";
     
 
     echo "<tr>";
@@ -153,7 +172,6 @@ echo "</tr>";
 
 echo "</table>";
 
-
 }
 
 
@@ -161,8 +179,15 @@ echo "</table>";
 
 
 
-
-
 ?>
+
+<footer class="testfoot">
+  COMP 3512 - Web 2
+  <br>
+  <a href="https://github.com/patwa172/patwa172-assign1.git">Github</a>
+  <br>
+  &copy; Krithik Jaisankar & Paraspreet Atwal 2023
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

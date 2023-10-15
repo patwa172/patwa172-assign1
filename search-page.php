@@ -48,6 +48,9 @@ include 'includes/functions.inc.php';
         <li class="nav-item">
           <a class="nav-link" href="./view-favorites-page.php#">View Favorites</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./about-us-page.php#">About Us</a>
+        </li>
       </form>
     </div>
   </div>
@@ -180,7 +183,13 @@ Year
 </form>  
 </fieldset>
 
-
+<footer class="testfoot">
+  COMP 3512 - Web 2
+  <br>
+  <a href="https://github.com/patwa172/patwa172-assign1.git">Github</a>
+  <br>
+  &copy; Krithik Jaisankar & Paraspreet Atwal 2023
+</footer>
 
 </main>
 
