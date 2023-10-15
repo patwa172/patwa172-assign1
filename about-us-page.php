@@ -16,7 +16,7 @@
 <header>
 
 <!--nav bar goes here -->
-    <h1>Krithik and Paraspreet's Song Database</h1>
+    <h1>Krithik and Paraspreet's COMP 3512 Assign</h1>
     <h2>About Us</h2>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -50,7 +50,29 @@
   </div>
 </nav>
 </header>
+
+<p>
+For this assignment my partner and I made a webpage using HTML and CSS along with
+PHP and SQLite to create a song databse that allows you to search/browse songs 
+and add them to your favorites list. I (Krithik) am a third-year BCIS student
+at MRU and my partner (Paras) is a fifth-year BCIS student at MRU. 
+<br>
+<br>
+This assignment was made on October 14, 2023 for COMP 3512 : Web 2.
+<br>
+<br>
+Assignment Github repo: <a href="https://github.com/patwa172/patwa172-assign1.git">https://github.com/patwa172/patwa172-assign1.git</a>
+<br>
+<br>
+Github names:
+<br>
+KrithikJ
+<br>
+patwa172 
+</p>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 <footer class="testfoot">
   COMP 3512 - Web 2
   <br>

@@ -21,8 +21,9 @@ include 'includes/functions.inc.php';
 <header>
 
 <!--nav bar goes here -->
-    <h1>Krithik and Paraspreet's Song Database</h1>
+    <h1>Krithik and Paraspreet's COMP 3512 Assign</h1>
     <h2>Home</h2>
+    <h5>This webpage was made using Bootstrap - https://getbootstrap.com/</h5>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">

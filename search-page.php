@@ -22,7 +22,7 @@ include 'includes/functions.inc.php';
 <header>
 
 <!--nav bar goes here -->
-    <h1>Krithik and Paraspreet's Song Database</h1>
+    <h1>Krithik and Paraspreet's COMP 3512 Assign</h1>
     <h2>Song Search</h2>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -63,12 +63,6 @@ include 'includes/functions.inc.php';
 
 
 <!-- the form that the user will interact with -->
-<?php 
-
-
-
-?>
-
 
 <fieldset>
   <form id=form action = "./search-results-page.php" method = "GET">
@@ -105,6 +99,7 @@ $data = $artistsGateway->getAllArtists();
 
 //Need a way to make the data array unique.
 
+//loops through each artist to provide in the dropdown when selecting artists
 foreach($data as $d)
 {
 
@@ -137,7 +132,8 @@ foreach($data as $d)
 
 $genresGateway = new GenresDB($conn);
 
-$data = $genresGateway->getAllGenres();
+$data = $genresGateway->getAllGenres();//this get all genres function is used to gather all
+//of the genres and return them as a dropdown in the song search page
 
 
 foreach($data as $d)

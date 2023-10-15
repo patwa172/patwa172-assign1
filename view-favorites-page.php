@@ -5,10 +5,10 @@ include 'search-results-page.php';
 $_SESSION['favourites'][] = $_POST['favourites'];
 
 
-//print_r($_SESSION);
 
 //Here we will have to use the database once again to display all of the songs and their info
-
+//this file includes the search results file and is used to display all of the favorites of
+//the user that were chosen.
 echo "<div>";
 
 echo " <h1>  Your Favourites </h1>";
@@ -20,7 +20,8 @@ $conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
 
 $songsGateway = new SongsDB($conn);
 
-
+//this chunk of code is responsible for taking away songs from the session array that the user
+//wants to remove.
 if (isset($_GET['favourites'])) 
 { 
 
@@ -42,29 +43,18 @@ if (isset($_GET['favourites']))
                   }
               }
            }
-           else
-           {
-           
-           }
       }
     }
   }
 }
-
+//this chunk of the code removes everything from the session array if the user selects the 
+//remove all button
 if (isset($_GET['removeAll'])) 
 {
   $_SESSION = [];
 }
 
-
-
-
-
-
-// Generate the form with updated data
-
-
-
+//this chunk of the code is responsible for outputting the users favorite songs.
 if (count($_SESSION) > 0)
 {
 echo "<form action='' method='GET'>";
@@ -80,7 +70,8 @@ echo "<th> Genre </th>";
 echo "</tr>";
 }
 
-
+//this chunk of the code iterates through the session array to display all of the songs in
+//the favorites list.
 foreach ($_SESSION as $key => $value) 
 {
   

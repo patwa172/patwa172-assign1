@@ -18,7 +18,7 @@ include('includes/functions.inc.php');
 <header>
 
 <!--nav bar goes here -->
-    <h1>Krithik and Paraspreet's Song Database</h1>
+    <h1>Krithik and Paraspreet's COMP 3512 Assign</h1>
     <h2>Song Information</h2>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -53,28 +53,12 @@ include('includes/functions.inc.php');
 </nav>
 </header>
 
-
 <?php
-
-//include ('./includes/functions.inc.php');
-
-
-?>
-
-
-<?php
-/*
-require_once 'includes/config.inc.php';
-require_once 'includes/assign-1-db-classes.inc.php';
-include('/includes/functions.inc.php');
-
-include '/Applications/XAMPP/xamppfiles/htdocs/patwa172-assign1/patwa172-assign1/includes/functions.inc.php';
-*/
 
 $conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
 
 $songsGateway = new SongsDB($conn);
-
+//checks if user has selected the song information link without clicking on the song name
 if(isset($_GET['message']))
 {
 
@@ -84,25 +68,24 @@ if(isset($_GET['message']))
 
 }
 
-
+//checks if user has selected a song name from the search results page. If so the proper 
+//information for the song will be displayed.
 if(isset($_GET["songId"]))
 {
 
-$data = $songsGateway->songInfo($_GET['songId']);
+$data = $songsGateway->songInfo($_GET['songId']);//song info function is used to gather
+//information regarding a specific song that the user chose to view.
 
 
-
+//iterates through the data array to output song information
 foreach ($data as $d)
 {
-  //$songMinutes = $d['duration'] / 60;
-
-  //echo $songMinutes;
 
   $seconds = $d['duration'];
   $minutes = floor($seconds/60);
   $secondsleft = $seconds%60;
 
-  if($minutes<10) {
+  if($minutes<10) {//converts seconds to minutes and seconds
     $minutes = "" . $minutes;
   }
   if($secondsleft<10) {
@@ -143,7 +126,7 @@ echo "<h2> Song Analytics </h2>";
 echo"</br>";
 
 
-
+    //formatting and outputting song info
     echo"<table>";
     echo "<tr>";
     echo "<th> Danceability </th>";
@@ -181,14 +164,7 @@ echo "</table>";
 
 }
 
-
-
-
-
-
 ?>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
