@@ -66,7 +66,7 @@ class SongsDB
     private static $baseSQL3 =  "SELECT DISTINCT bpm, energy, danceability, liveness, valence, acousticness, speechiness, popularity, duration, loudness, song_id, title, year, artists.artist_name as artist_name, genres.genre_name as genre_name FROM songs INNER JOIN artists on songs.artist_id = artists.artist_id INNER JOIN genres ON  songs.genre_id = genres.genre_id";
 
 
-    private static $baseSQL4 = "SELECT title, songs.artist_id, artists.artist_name From songs INNER JOIN artists ON artists.artist_id = songs.artist_id";
+    private static $baseSQL4 = "SELECT songs.song_id, title, songs.artist_id, artists.artist_name From songs INNER JOIN artists ON artists.artist_id = songs.artist_id";
     
 
 

@@ -18,7 +18,7 @@ include('includes/functions.inc.php');
 <header>
 
 <!--nav bar goes here -->
-    <h1>Krithik and Paras's Song Database</h1>
+    <h1>Krithik and Paraspreet's Song Database</h1>
     <h2>Song Information</h2>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -36,10 +36,10 @@ include('includes/functions.inc.php');
           <a class="nav-link" href="./search-page.php#">Song Search</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./single-song-page.php#">Song Info</a>
+          <a class="nav-link" href='./single-song-page.php?message=error'>Song Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./search-results-page.php#">Search Results</a>
+        <a class="nav-link" href='./search-results-page.php?output=all'>Search Results</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./view-favorites-page.php#">View Favorites</a>
@@ -75,7 +75,14 @@ $conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
 
 $songsGateway = new SongsDB($conn);
 
+if(isset($_GET['message']))
+{
 
+
+  echo "<h2> Please select a song to display its information. </h2>";
+
+
+}
 
 
 if(isset($_GET["songId"]))

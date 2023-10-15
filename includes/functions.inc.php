@@ -13,7 +13,12 @@ require_once 'assign-1-db-classes.inc.php';
 
 function outputData($data)
 {
-    echo "<form action = '' method='POST' >";
+
+    echo "<h5> Here are the songs you have asked for. If you have entered the wrong song name and would like to go back click <a href = 'search-page.php'> here </a></h5>";
+
+    echo "</br>";
+
+    echo "<form action = 'view-favorites-page.php' method='POST' >";
             echo"<table>";
             echo "<tr>";
             echo "<th class='heading'> Song Title </th>";
@@ -44,10 +49,6 @@ function outputData($data)
             echo "<button type='submit'> Add to favourites </button>";
             echo "</form>"; 
 
-
-            echo "<h2> You added the following songs to your favourites: </h2>";
-
-            echo "<a href=view-favorites-page.php> Click here to view favourites </a>";
 
     
 }

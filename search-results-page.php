@@ -13,7 +13,7 @@
 <header>
 
 <!--nav bar goes here -->
-    <h1>Krithik and Paras's Song Database</h1>
+    <h1>Krithik and Paraspreet's Song Database</h1>
     <h2>Search Results</h2>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -28,13 +28,13 @@
           <a class="nav-link " aria-current="page" href="./home-page.php#">Home</a> <!-- Need to add link to home page once its creates -->
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./search-page.php#">Song Search</a>
+          <a class="nav-link" href="./search-page.php">Song Search</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./single-song-page.php#">Song Info</a>
+                  <a class="nav-link" href='./single-song-page.php?message=error'>Song Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./search-results-page.php#">Search Results</a>
+          <a class="nav-link" href='./search-results-page.php?output=all'>Search Results</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./view-favorites-page.php#">View Favorites</a>
@@ -55,15 +55,23 @@ include 'includes/config.inc.php';
 include 'includes/assign-1-db-classes.inc.php';
 include 'includes/functions.inc.php';
 
-header("Access-Control-Allow-Origin: https://example.com");
 
-
-   session_start();
+  session_start();
     
   $userSelection = 1;
 
     $conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
     
+    if ($_GET['output'])
+    {
+
+      $songsGateway = new SongsDB($conn);
+
+        $data = $songsGateway->getAll();
+
+        outputData($data);
+        
+    }
   
     if(isset($_GET['val']))
     {
@@ -75,14 +83,17 @@ header("Access-Control-Allow-Origin: https://example.com");
 
         $data = $genresGateway->getTopGenres();
 
-
         //print_r($data);
+
+        echo "<h1> Genres </h1>";
 
         foreach ($data as $d)
         {
 
+          echo "<div>";
           echo "<h1>". $d['genre_name'] ."</h1>";
-          echo "<h5>". $d['song_count'] ."</h5>";
+          echo "<h5> Song count: ". $d['song_count'] ."</h5>";
+          echo "</div>";
          
 
 
@@ -93,18 +104,22 @@ header("Access-Control-Allow-Origin: https://example.com");
       else if(($_GET['val']) == 2)
       {
 
+       
         $artistsGateway = new ArtistsDB($conn);
 
         $data = $artistsGateway->getTopArtists();
 
 
-        //print_r($data);
+        
+        echo "<h1> Artists </h1>";
 
         foreach ($data as $d)
         {
 
+          echo "<div>";
           echo "<h1>". $d['artist_name'] ."</h1>";
           echo "<h5> Song count: ". $d['song_count'] ."</h5>";
+          echo "</div>";
         
 
         }
@@ -116,18 +131,19 @@ header("Access-Control-Allow-Origin: https://example.com");
       else if(($_GET['val']) == 3)
       {
         
-
+        $x=0;
 
         $songsGateway = new SongsDB($conn);
 
         $data = $songsGateway->mostPopular();
 
-        //print_r($data);
+        
+        echo "<h1> Songs </h1>";
 
         foreach ($data as $d)
         {
 
-          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h1><a href=single-song-page.php?songId=".$d['song_id'].">".$d['title']."</a></h1>";
           echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
          // echo "<h5> Popularity score:".$d['popularity']."</h5>";
         
@@ -139,6 +155,7 @@ header("Access-Control-Allow-Origin: https://example.com");
       else if(($_GET['val']) == 4)
       {
         
+        $x=0;
 
 
         $songsGateway = new SongsDB($conn);
@@ -147,12 +164,15 @@ header("Access-Control-Allow-Origin: https://example.com");
 
         //print_r($data);
 
+
+        echo "<h1> Songs </h1>";
+
         foreach ($data as $d)
         {
 
-          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h1><a href=single-song-page.php?songId=".$d['song_id'].">".$d['title']."</a></h1>";
           echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
-         // echo "<h5> Popularity score:".$d['popularity']."</h5>";
+       
         
         }
 
@@ -161,19 +181,20 @@ header("Access-Control-Allow-Origin: https://example.com");
       else if(($_GET['val']) == 5)
       {
 
+        $x=0;
 
         $songsGateway = new SongsDB($conn);
 
         $data = $songsGateway->acousticSong();
 
-        //print_r($data);
+        echo "<h1> Songs </h1>";
 
         foreach ($data as $d)
         {
 
-          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h1><a href=single-song-page.php?songId=".$d['song_id'].">".$d['title']."</a></h1>";
           echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
-         // echo "<h5> Popularity score:".$d['popularity']."</h5>";
+    
         
         }
 
@@ -183,38 +204,42 @@ header("Access-Control-Allow-Origin: https://example.com");
     
       else if(($_GET['val']) == 6)
       {
+        $x=0;
 
         $songsGateway = new SongsDB($conn);
 
         $data = $songsGateway->clubMusic();
 
-        //print_r($data);
+        echo "<h1> Songs </h1>";
 
         foreach ($data as $d)
         {
 
-          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h1><a href=single-song-page.php?songId=".$d['song_id'].">".$d['title']."</a></h1>";
           echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
-         // echo "<h5> Popularity score:".$d['popularity']."</h5>";f
+         
         }
 
         
       }
       else if(($_GET['val']) == 7)
       {
+        $x=0;
 
         $songsGateway = new SongsDB($conn);
 
         $data = $songsGateway->runningMusic();
 
-        //print_r($data);
+      
+
+        echo "<h1> Songs </h1>";
 
         foreach ($data as $d)
         {
 
-          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h1><a href=single-song-page.php?songId=".$d['song_id'].">".$d['title']."</a></h1>";
           echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
-         // echo "<h5> Popularity score:".$d['popularity']."</h5>";f
+         
         }
 
       }
@@ -222,16 +247,17 @@ header("Access-Control-Allow-Origin: https://example.com");
       else if(($_GET['val']) == 8)
       {
         
+        $x=0;
         $songsGateway = new SongsDB($conn);
 
         $data = $songsGateway->studyingMusic();
 
-        //print_r($data);
+        echo "<h1> Songs </h1>";
 
         foreach ($data as $d)
         {
 
-          echo "<h1>". $d['title'] ."</h1>";
+          echo "<h1><a href=single-song-page.php?songId=".$d['song_id'].">".$d['title']."</a></h1>";
           echo "<h5> Artist name: ". $d['artist_name'] ."</h5>";
          // echo "<h5> Popularity score:".$d['popularity']."</h5>";f
         }
@@ -250,6 +276,7 @@ header("Access-Control-Allow-Origin: https://example.com");
 
     if(isset(($_GET['lessOrGreater'][0])))
     {
+     
         $lessOrGreater = $_GET['lessOrGreater'][0];
    
       }
@@ -261,6 +288,7 @@ header("Access-Control-Allow-Origin: https://example.com");
     
     if(isset($_GET['type'][0]))
     {
+      
         $userSelection = $_GET['type'][0];
 
     }
@@ -269,11 +297,11 @@ header("Access-Control-Allow-Origin: https://example.com");
 
     $songsGateway = new SongsDB($conn);
 
-    if($userSelection == 't')
+    if($userSelection == 't' )
     {
-    //User puts title info on previous page
+        //User puts title info on previous page
 
-        if(isset($_GET['titleName'])) //Check for greater than 0 for accuracy
+        if(isset($_GET['titleName']) && $_GET['titleName'] != '') //Check for greater than 0 for accuracy
         {
 
             $data = $songsGateway->searchFromTitle($_GET['titleName']);
@@ -281,13 +309,24 @@ header("Access-Control-Allow-Origin: https://example.com");
             outputData($data);
            
         }
+        else
+        {
+          
+          echo "<h1>You did not enter a song name. Please go back and try again.</h1>";
+          echo "<h3><p><a href = 'search-page.php'>Click here </a>to go back.</p></h3>";
+        }
         $_SESSION['favourites'][] = $_POST['favourites'];
-    }
+   
+   
+   
+      }
 
     else if($userSelection == 'a')
-    //User puts artist info on previous page
+        //User puts artist info on previous page
     {
-        if(isset($_GET['artistName'])) //check if rest of the values are 0
+
+      
+        if(isset($_GET['artistName']) && ($_GET['artistName'] !='')) //check if rest of the values are 0
         {
 
             $artistGateway = new ArtistsDB($conn);
@@ -297,6 +336,15 @@ header("Access-Control-Allow-Origin: https://example.com");
             outputData($data);
 
         }
+        else
+        {
+
+          echo "<h1>You did not select an Artist. Please go back and try again.</h1>";
+          echo "<h3><p><a href = 'search-page.php'>Click here </a>to go back.</p></h3>";
+
+        }
+
+
         $_SESSION['favourites'][] = $_POST['favourites'];
        
 
@@ -306,9 +354,10 @@ header("Access-Control-Allow-Origin: https://example.com");
 
     else if ($userSelection == 'g')
     {
-    
+     
         //User puts genre info on previous page
-        if(isset($_GET['genreName']))
+        
+        if(isset($_GET['genreName']) && $_GET['genreName'] != '') 
         {
 
             $genreGateway = new GenresDB($conn);
@@ -319,38 +368,52 @@ header("Access-Control-Allow-Origin: https://example.com");
 
            
         }
+        else
+        {
+
+          echo "<h1>You did not select a Genre. Please go back and try again.</h1>";
+          echo "<h3><p><a href = 'search-page.php'>Click here </a>to go back.</p></h3>";
+
+        }
         $_SESSION['favourites'][] = $_POST['favourites'];
     }
 
-    //Tricky part, if user selects year
-
-    //itterate through the $_GET superglobal array
-
-    //SOMETHING IS WRONG HERE
+    // user selects year info in pervious page
 
     else if($userSelection == 'y')
-    {
+    { 
     
         if($lessOrGreater == "less")
         {
-            if(isset($_GET['lessThanYearValue']) && $_GET['lessThanYearValue'] > 0 )
-            {
 
+            if(isset($_GET['lessThanYearValue']) && $_GET['lessThanYearValue'] >= 2017 && $_GET['lessThanYearValue'] <= 1000 )
+            {
                 $data = $songsGateway->searchFromYearLT($_GET['lessThanYearValue']);
 
                 outputData($data);
                 
                 
             }
+
+            else
+            {
+              echo "<h1>You did not select a valid Year. Please go back and try again.</h1>";
+              echo "<h3><p><a href = 'search-page.php'>Click here </a>to go back.</p></h3>";
+
+            }
             $_SESSION['favourites'][] = $_POST['favourites'];
-        }
+        
+        
+        
+        
+          }
 
 
         else if ($lessOrGreater == "greater")
         {
+          
 
-
-            if(isset($_GET['greaterThanYearValue']) && $_GET['greaterThanYearValue'] > 0)
+            if(isset($_GET['greaterThanYearValue']) && $_GET['greaterThanYearValue'] >= 0 && $_GET['greaterThanYearValue'] <= 2018)
             {
 
              
@@ -360,30 +423,23 @@ header("Access-Control-Allow-Origin: https://example.com");
                 outputData($data);
 
                 
-          }
+           }
+           else
+           {
+           
+            echo "<h1>You did not select a valid Year. Please go back and try again.</h1>";
+            echo "<h3><p><a href = 'search-page.php'>Click here </a>to go back.</p></h3>";
+
+           }
           $_SESSION['favourites'][] = $_POST['favourites'];
         }
-    
+        
     
     }
+
    
 
-    //If user enters two years (still need to do error checking for the above as well. If user enters an invalid input)
-    //If user enters an invalid input, we must then redirect the user to an error page. This will be done via the
-    // header() function.s
-
-    //At this point the $_POST superglobal array has all of the songs in the favourties section. We now have a superglobal array
-    // that is populated with the users info, now we need to make a 
-
-    //$_SESSION['favourites'][] = $_POST['favourites']; //AT THIS POINT THE $_SESSION ARRAY has been populated
-  
-    //print_r($_SESSION);
-
-    //$_POST = [];
-
     //$_SESSION = [];
-
-
 
 
 
@@ -392,10 +448,3 @@ header("Access-Control-Allow-Origin: https://example.com");
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-<footer class="testfoot">
-  COMP 3512 - Web 2
-  <br>
-  <a href="https://github.com/patwa172/patwa172-assign1.git">Github</a>
-  <br>
-  &copy; Krithik Jaisankar & Paraspreet Atwal 2023
-</footer>

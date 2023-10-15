@@ -21,8 +21,8 @@ include 'includes/functions.inc.php';
 <header>
 
 <!--nav bar goes here -->
-    <h1>Krithik and Paras's Song Database</h1>
-    <h2>Song Search</h2>
+    <h1>Krithik and Paraspreet's Song Database</h1>
+    <h2>Home</h2>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -33,16 +33,16 @@ include 'includes/functions.inc.php';
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="./home-page.php#">Home</a> <!-- Need to add link to home page once its creates -->
+          <a class="nav-link" aria-current="page" href="./home-page.php#">Home</a> <!-- Need to add link to home page once its creates -->
         </li>
         <li class="nav-item">
           <a class="nav-link " href="./search-page.php#">Song Search</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./single-song-page.php#">Song Info</a>
+        <a class="nav-link" href='./single-song-page.php?message=error'>Song Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./search-results-page.php#">Search Results</a>
+        <a class="nav-link" href='./search-results-page.php?output=all'>Search Results</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./view-favorites-page.php#">View Favorites</a>

@@ -22,7 +22,7 @@ include 'includes/functions.inc.php';
 <header>
 
 <!--nav bar goes here -->
-    <h1>Krithik and Paras's Song Database</h1>
+    <h1>Krithik and Paraspreet's Song Database</h1>
     <h2>Song Search</h2>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -37,13 +37,13 @@ include 'includes/functions.inc.php';
           <a class="nav-link " aria-current="page" href="./home-page.php#">Home</a> <!-- Need to add link to home page once its creates -->
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./search-page.php#">Song Search</a>
+          <a class="nav-link" href="./search-page.php#">Song Search</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./single-song-page.php#">Song Info</a>
+        <a class="nav-link" href='./single-song-page.php?message=error'>Song Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./search-results-page.php#">Search Results</a>
+        <a class="nav-link " href='./search-results-page.php?output=all'>Search Results</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="./view-favorites-page.php#">View Favorites</a>
@@ -63,10 +63,17 @@ include 'includes/functions.inc.php';
 
 
 <!-- the form that the user will interact with -->
+<?php 
+
+
+
+?>
+
+
 <fieldset>
-  <form action = "./search-results-page.php" method = "GET">
+  <form id=form action = "./search-results-page.php" method = "GET">
 
-
+<label><h3> Welcome to our song database. To find your favourite songs, please begin by filling out the information below. </h3></label>
 <!-- Title section -->
 
 <div class="form-check">
@@ -178,7 +185,7 @@ Year
 
 </br>
 
-<input type = 'submit'>
+<input type = 'submit' val=sub>
 
 </form>  
 </fieldset>
