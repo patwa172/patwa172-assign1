@@ -58,8 +58,6 @@ include 'includes/functions.inc.php';
 
 
 
-try
-{
    session_start();
     
     $conn = DatabaseHelper::createConnection(array(DBCONNSTRING,DBUSER,DBPASS));
@@ -383,13 +381,8 @@ try
 
     //$_SESSION = [];
 
-}
 
-catch(Exception $e)
-{
-  
-die($e->getMessage());
-}
+
 
 
 ?>
